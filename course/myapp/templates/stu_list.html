@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Management</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f6fa;
+            font-size: small;
+        }
+
+        
+
+        .container {
+            width: 90%;
+            margin: 30px auto;
+            padding-left: 30px;
+            padding-top: 20px;
+             margin-right: 180px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .add-btn {
+            background-color: #198754;
+            color: white;
+            padding: 10px 18px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .search-box {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .search-box input {
+            padding: 10px;
+            width: 300px;
+        }
+        .search-box .sel{
+            width: 90px;
+            height: 38px;
+        }
+
+        .search-box button {
+            padding: 10px 18px;
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            background-color: white;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #222;
+            color: white;
+        }
+
+        .profile {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .view {
+            color: #0d6efd;
+        }
+
+        .edit {
+            color: #198754;
+        }
+
+        .delete {
+            color: red;
+        }
+
+        .actions a {
+            margin: 5px;
+            text-decoration: none;
+        }
+
+        .con{
+            display: flex;
+            padding-bottom: 20px;
+        }
+
+        .nav{
+            padding-left: 10px;
+            padding-top: 40px;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    
+ {% include 'base.html'%}
+
+
+
+    <div class="container">
+
+       
+    
+        <div class="header">
+
+            <div>
+                <p>Student records</p>
+                <h1>Students</h1>
+                <p>Search, filter and manage every enrolled learner.</p>
+            </div>
+
+            <a href="http://127.0.0.1:8000/myapp/student/add/" class="add-btn">Add Student
+            </a>
+
+        </div>
+
+
+        <!-- Search -->
+
+        <div class="search-box">
+
+            <form method="GET">
+
+                <input type="text" name="search" placeholder="Search student...">
+                <select class="sel" name="order">
+
+                <option value="">Order By</option>
+
+                <option value="asc">Ascending</option>
+
+                <option value="desc">Descending</option>
+
+                </select>
+
+                <button type="submit">Search</button>
+
+            </form>
+
+        </div>
+
+
+        <!-- Student Table -->
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Profile</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Date of Birth</th>
+                    <th>Actions</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for student in students %}
+
+                <tr>
+
+                    <td>
+
+                        {% if student.profile_image %}
+
+                            <img
+                                src="{{ student.profile_image.url }}"
+                                class="profile"
+                            >
+
+                        {% else %}
+
+                            No Image
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <td> {{ student.name }}</td>
+
+
+                    <td> {{ student.email }} </td>
+
+
+                    <td> {{ student.phone }}</td>
+
+
+                    <td>{{ student.date_of_birth }}</td>
+
+
+                <td class="actions">
+
+                        <a
+                            href="{% url 'student_detail' student.id %}"
+                            class="view"> View
+                        </a>
+
+                        <a
+                            href="{% url 'student_update' student.id %}"
+                            class="edit"> Edit
+                        </a>
+
+                        <a
+                            href="{% url 'student_delete' student.id %}"
+                            class="delete">Delete
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+                    <td colspan="6">
+                        No students found
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</body>
+</html>

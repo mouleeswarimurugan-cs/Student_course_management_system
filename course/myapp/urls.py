@@ -1,0 +1,36 @@
+from django.urls import path
+from myapp import views
+
+urlpatterns = [
+    path('courses/',views.base,name="base"),
+    path('student/', views.student_list, name='student_list'),
+    path('student/add/',views.add_student,name="add-student"),
+    path("student/<int:id>/", views.student_detail, name="student_detail"),
+    path("student/update/<int:id>/",views.student_update,name="student_update"),
+    path("student/delete/<int:id>/",views.student_delete,name="student_delete"),
+    path("course/",views.course_list,name="course_list"),
+    path("course/add/",views.course_create,name="course_create"),
+    path("course/<int:id>/",views.course_detail,name="course_detail"),
+    path("course/update/<int:id>/",views.course_update,name="course_update" ),
+    path("course/delete/<int:id>/",views.course_delete,name="course_delete"),
+    path("enrollment/",views.enrollment_list,name="enrollment_list"),
+    path("enrollment/create/",views.enrollment_create,name="enrollment_create"),
+    path("enrollment/<int:id>/",views.enrollment_detail,name="enrollment_detail"),
+    path("enrollment/<int:id>/update/",views.enrollment_update,name="enrollment_update"),
+    path("enrollment/<int:id>/delete/",views.enrollment_delete,name="enrollment_delete"),
+    path("instructor/", views.instructor_list, name="instructor_list"),
+    path("instructor/create/",views.instructor_create,name="instructor_create"),
+    path("instructor/<int:id>/",views.instructor_detail,name="instructor_detail"),
+    path("instructor/<int:id>/update/",views.instructor_update,name="instructor_update"),
+    path("instructor/<int:id>/delete/",views.instructor_delete,name="instructor_delete"),
+    path("material/",views.material_list,name="material_list"),
+    path("material/create/",views.material_create,name="material_create"),
+    path("material/<int:id>/",views.material_detail,name="material_detail"),
+    path("material/<int:id>/update/",views.material_update,name="material_update"),
+    path("material/<int:id>/delete/",views.material_delete,name="material_delete"),
+    path("dashboard/",views.dashboard,name="dashboard"),
+    path("signup/",views.signup, name="signup"),
+    path("login/",views.login_view,name="login"),
+    path("home_page/",views.home,name="home"),
+    path("logout/", views.logout_view, name="logout")
+]

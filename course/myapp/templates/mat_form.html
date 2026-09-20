@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Course Material Form</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            min-height: 100vh;
+            
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            color: #17294b;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        .group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d5d9df;
+            border-radius: 7px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #4f46e5;
+        }
+
+        input[type="file"] {
+            background: #fafafa;
+            cursor: pointer;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        button,
+        .back-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 7px;
+            font-size: 15px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .save-btn {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .save-btn:hover {
+            background: #3730a3;
+        }
+
+        .back-btn {
+            background: #e5e7eb;
+            color: #333;
+        }
+
+        .back-btn:hover {
+            background: #d1d5db;
+        }
+        
+
+    </style>
+
+</head>
+
+<body>
+{% include 'base.html'%}
+
+
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>Course Material</h1>
+
+        <p class="subtitle">
+            Add a new course material
+        </p>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <!-- Course -->
+
+            <div class="group">
+
+                <label>Course</label>
+
+                {{ form.course }}
+
+            </div>
+
+
+            <!-- Title -->
+
+            <div class="group">
+
+                <label>Material Title</label>
+
+                {{ form.title }}
+
+            </div>
+
+
+            <!-- Description -->
+
+            <div class="group">
+
+                <label>Description</label>
+
+                {{ form.description }}
+
+            </div>
+
+
+            <!-- File -->
+
+            <div class="group">
+
+                <label>Upload File</label>
+
+                {{ form.file }}
+
+            </div>
+
+
+            <!-- Buttons -->
+
+            <div class="buttons">
+
+                <button
+                    type="submit"
+                    class="save-btn">
+
+                    Save Material
+
+                </button>
+
+                <a
+                    href="{% url 'material_list' %}"
+                    class="back-btn">
+
+                    Back
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+</body>
+
+</html>

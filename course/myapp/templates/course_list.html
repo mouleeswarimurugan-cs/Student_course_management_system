@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Course Management</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            font-size: small;
+        }
+
+        body {
+            background: #f5f7fb;
+            
+            
+        }
+
+        
+        .container {
+            max-width: 1100px;
+            margin-left: 40px;
+            margin-top: 10px;
+            
+            
+            
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            color: #222;
+            font-size: 30px;
+        }
+
+        .header p {
+            color: #777;
+            margin-top: 6px;
+        }
+
+        .add-btn {
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .add-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* Filter */
+        .filter-box {
+            background: white;
+            padding: 15px;
+            margin-bottom: 25px;
+        }
+
+      .filter-box form {
+        display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .filter-box input,
+        .filter-box select {
+            height: 38px;
+            padding: 8px 10px;
+            border: 1px solid #d5d5d5;
+            border-radius: 4px;
+            background: white;
+            outline: none;
+        }
+
+        .filter-box input[type="text"] {
+            width: 230px;
+        }
+
+        .filter-box input[type="number"] {
+            width: 100px;
+        }
+
+        .filter-box select {
+            width: 120px;
+        }
+
+        .filter-box button {
+            height: 38px;
+            padding: 0 18px;
+            border: none;
+            border-radius: 5px;
+            background: #1f3155;
+            color: white;
+            cursor: pointer;
+        }
+
+        .filter-box button:hover {
+            background: #16243e;
+        }
+
+        /* Course Grid */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        /* Course Card */
+        .course-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .course-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .no-image {
+            width: 100%;
+            height: 180px;
+            background: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+        }
+
+        .course-content {
+            padding: 20px;
+        }
+
+        .course-content h2 {
+            font-size: 18px;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 18px;
+        }
+
+        /* Course Info */
+        .course-info {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .info-box {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .label {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .value {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .fees {
+            color: #2563eb;
+        }
+
+        /* Buttons */
+        .course-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .course-buttons a {
+            flex: 1;
+            text-align: center;
+            text-decoration: none;
+            padding: 9px 5px;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .view-btn {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .edit-btn {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .delete-btn {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .view-btn:hover {
+            background: #bae6fd;
+        }
+
+        .edit-btn:hover {
+            background: #bbf7d0;
+        }
+
+        .delete-btn:hover {
+            background: #fecaca;
+        }
+
+        /* Empty */
+        .empty {
+            background: white;
+            padding: 50px;
+            text-align: center;
+            border-radius: 12px;
+            color: #777;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .course-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 20px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-box form {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+        
+    </style>
+</head>
+
+<body>
+   
+    {% include 'base.html'%}
+    
+    <div class="container">
+
+    
+
+    <div class="header">
+
+        <div>
+            <p>Course catalog</p>
+
+            <h1>Courses</h1>
+
+            <p>
+                Everything currently on offer, with fees and duration at a glance
+            </p>
+        </div>
+
+        <a href="{% url 'course_create' %}" class="add-btn">
+            Add Course
+        </a>
+
+    </div>
+
+
+    <!-- Filter -->
+
+    <div class="filter-box">
+        
+
+    <form method="GET">
+
+        <input type="text"name="search" placeholder="Search by course name"
+               value="{{ request.GET.search }}">
+
+
+        <select name="duration">
+
+            <option value="">All durations</option>
+
+            <option value="3 Months">3 Months</option>
+
+            <option value="6 Months">6 Months</option>
+
+            <option value="1 Year">1 Year</option>
+
+        </select>
+
+
+        <input type="number"
+               name="min_fees"
+               placeholder="Min fees"
+               value="{{ request.GET.min_fees }}">
+
+
+        <input type="number"
+               name="max_fees"
+               placeholder="Max fees"
+               value="{{ request.GET.max_fees }}">
+
+
+        <select name="order">
+
+            <option value="">Default</option>
+
+            <option value="low">
+                Fees: low to high
+            </option>
+
+            <option value="high">
+                Fees: high to low
+            </option>
+
+        </select>
+
+
+        <button type="submit">
+            Apply
+        </button>
+
+    </form>
+
+</div>
+    <!-- Course List -->
+
+    {% if courses %}
+
+    <div class="course-grid">
+
+        {% for course in courses %}
+
+        <div class="course-card">
+
+
+            <!-- Image -->
+
+            {% if course.cou_image %}
+
+                <img src="{{ course.cou_image.url }}"
+                     class="course-image"
+                     alt="{{ course.course_name }}">
+
+            {% else %}
+
+                <div class="no-image">
+                    No Image
+                </div>
+
+            {% endif %}
+
+
+            <!-- Content -->
+
+            <div class="course-content">
+
+                <!-- Correct field -->
+
+                <h2>
+                    {{ course.name }}
+                </h2>
+
+
+                <p class="description">
+                    {{ course.description }}
+                </p>
+
+
+                <!-- Course Information -->
+
+                <div class="course-info">
+
+                    <div class="info-box">
+
+                        <span class="label">
+                            Duration
+                        </span>
+
+                        <span class="value">
+                            {{ course.duration }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span class="label">
+                            Fees
+                        </span>
+
+                        <!-- Correct field -->
+
+                        <span class="value fees">
+                            ₹{{ course.fees }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Buttons -->
+
+                <div class="course-buttons">
+
+                    <a href="{% url 'course_detail' course.id %}"
+                       class="view-btn">
+                        View
+                    </a>
+
+
+                    <a href="{% url 'course_update' course.id %}"
+                       class="edit-btn">
+                        Edit
+                    </a>
+
+
+                    <a href="{% url 'course_delete' course.id %}"
+                       class="delete-btn">
+                        Delete
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    {% else %}
+
+        <div class="empty">
+
+            <h2>No Courses Available</h2>
+
+            <p>
+                Please add a course to get started.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

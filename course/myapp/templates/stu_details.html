@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Detail</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        /* Navbar */
+
+        .navbar {
+            height: 70px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 50px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #4b5563;
+            margin-left: 25px;
+            font-size: 14px;
+        }
+
+        .navbar a:hover {
+            color: #2563eb;
+        }
+
+        /* Main */
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        .page-title {
+            margin-bottom: 25px;
+        }
+
+        .page-title h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .page-title p {
+            margin-top: 8px;
+            color: #6b7280;
+        }
+
+        /* Student Card */
+
+        .student-card {
+            background: white;
+            border-radius: 14px;
+            padding: 35px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Profile */
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .profile-section img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #e5edff;
+        }
+
+        .profile-info h2 {
+            margin: 0 0 8px;
+            font-size: 24px;
+        }
+
+        .profile-info p {
+            margin: 5px 0;
+            color: #6b7280;
+        }
+
+        /* Details */
+
+        .details-title {
+            margin: 30px 0 20px;
+            font-size: 18px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .detail-box {
+            background: #f8fafc;
+            padding: 18px;
+            border-radius: 9px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .detail-box span {
+            display: block;
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 7px;
+        }
+
+        .detail-box strong {
+            font-size: 15px;
+        }
+
+        /* Resume */
+
+        .resume-section {
+            margin-top: 25px;
+            padding: 18px;
+            background: #f8fafc;
+            border-radius: 9px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .resume-section a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Buttons */
+
+        .actions {
+            margin-top: 30px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .actions a {
+            text-decoration: none;
+        }
+
+        .actions button {
+            border: none;
+            padding: 11px 20px;
+            border-radius: 7px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .edit {
+            background: #2563eb;
+            color: white;
+        }
+
+        .delete {
+            background: #ef4444;
+            color: white;
+        }
+
+        .back {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .actions button:hover {
+            opacity: 0.85;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .container {
+                width: 94%;
+            }
+
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+   
+
+    <!-- Main Container -->
+
+    <div class="container">
+
+
+        <!-- Page Title -->
+
+        <div class="page-title">
+
+            <h1>Student Details</h1>
+
+            <p>
+                View complete information about the student.
+            </p>
+
+        </div>
+
+
+        <!-- Student Card -->
+
+        <div class="student-card">
+
+
+            <!-- Profile -->
+
+            <div class="profile-section">
+
+                {% if student.profile_image %}
+
+                    <img
+                        src="{{ student.profile_image.url }}"
+                        alt="{{ student.name }}"
+                    >
+
+                {% endif %}
+
+
+                <div class="profile-info">
+
+                    <h2>
+                        {{ student.name }}
+                    </h2>
+
+                    <p>
+                        {{ student.email }}
+                    </p>
+
+                    <p>
+                        {{ student.phone }}
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Details -->
+
+            <h3 class="details-title">
+                Student Information
+            </h3>
+
+
+            <div class="details-grid">
+
+
+                <div class="detail-box">
+
+                    <span>Name</span>
+
+                    <strong>
+                        {{ student.name }}
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <span>Email</span>
+
+                    <strong>
+                        {{ student.email }}
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <span>Phone</span>
+
+                    <strong>
+                        {{ student.phone }}
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <span>Date of Birth</span>
+
+                    <strong>
+                        {{ student.date_of_birth }}
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- Resume -->
+
+            {% if student.resume %}
+
+                <div class="resume-section">
+
+                    <strong>
+                        Resume
+                    </strong>
+
+                    <br><br>
+
+                    <a
+                        href="{{ student.resume.url }}"
+                        target="_blank"
+                    >
+                        View Resume
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- Actions -->
+
+            <div class="actions">
+
+                <a href="{% url 'student_list' %}">
+
+                    <button class="back">
+                        Back
+                    </button>
+
+                </a>
+
+
+                <a href="{% url 'student_update' student.id %}">
+
+                    <button class="edit">
+                        Edit
+                    </button>
+
+                </a>
+
+
+                <a href="{% url 'student_delete' student.id %}">
+
+                    <button class="delete">
+                        Delete
+                    </button>
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

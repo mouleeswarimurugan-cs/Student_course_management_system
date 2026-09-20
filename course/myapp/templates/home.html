@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Student Course Management System</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f8f7f2;
+            color: #172b4d;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            height: 70px;
+            background: #1c2d4d;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 55px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+        }
+
+        .logo-box {
+            width: 40px;
+            height: 40px;
+
+            border: 1px solid #d0a84a;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #d0a84a;
+            font-weight: bold;
+        }
+
+        .logo h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 28px;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: #d0a84a;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 470px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 60px 20px;
+        }
+
+        .hero-content {
+            max-width: 750px;
+        }
+
+        .small-title {
+            color: #b18a2b;
+            font-size: 14px;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-family: Georgia, serif;
+            font-size: 46px;
+            margin: 0 0 20px;
+            color: #152b4e;
+        }
+
+        .hero p {
+            color: #61708a;
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-btn {
+            display: inline-block;
+
+            background: #1c2d4d;
+            color: white;
+
+            padding: 13px 25px;
+
+            text-decoration: none;
+
+            border-radius: 5px;
+
+            font-size: 14px;
+        }
+
+        .dashboard-btn:hover {
+            background: #2d4265;
+        }
+
+.buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 13px 28px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-btn {
+            background: #101c36;
+            color: white;
+        }
+
+        .signup-btn {
+            border: 1px solid #101c36;
+            color: #101c36;
+            background: white;
+
+        }
+        /* FEATURES */
+
+        .features {
+            max-width: 1100px;
+            margin: 0 auto 60px;
+
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+
+            gap: 18px;
+
+            padding: 0 20px;
+        }
+
+        .feature {
+            background: white;
+
+            border: 1px solid #ddd5c5;
+
+            padding: 25px 18px;
+
+            text-align: center;
+
+            border-radius: 6px;
+        }
+
+        .feature-icon {
+            font-size: 25px;
+            margin-bottom: 12px;
+        }
+
+        .feature h3 {
+            font-size: 15px;
+            margin: 8px 0;
+        }
+
+        .feature p {
+            color: #718096;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* ABOUT */
+
+        .about {
+            background: #eeeae0;
+            padding: 55px 20px;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-family: Georgia, serif;
+            font-size: 28px;
+            margin-top: 0;
+        }
+
+        .about p {
+            max-width: 700px;
+            margin: auto;
+            color: #5d6b80;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #1c2d4d;
+            color: #d5dbe4;
+
+            text-align: center;
+
+            padding: 18px;
+
+            font-size: 12px;
+        }
+
+        @media(max-width: 800px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .nav-links a {
+                margin-left: 10px;
+            }
+
+            .hero h1 {
+                font-size: 35px;
+            }
+
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media(max-width: 500px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        
+
+        <h3>
+            Student Course Management
+        </h3>
+
+    </div>
+
+
+ <div class="nav-links">
+
+        <a href="{% url 'home' %}">Home</a>
+
+        <a href="{% url 'login' %}">Login</a>
+
+        <a href="{% url 'signup' %}">Signup</a>
+
+        </div>
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="small-title">
+            COURSE MANAGEMENT PORTAL
+        </div>
+
+        <h1>
+            Student Course<br>
+            Management System
+        </h1>
+
+        <p>
+            A simple and organized platform to manage
+            students, courses, instructors, enrollments,
+            and course learning materials in one place.
+        </p>
+
+
+        <div class="buttons">
+
+            <a href="{% url 'login' %}" class="btn login-btn">
+                    Login
+            </a>
+
+            <a href="{% url 'signup' %}" class="btn signup-btn">
+                    Create Account
+            </a>
+
+
+    </div>
+
+</section>
+
+
+
+
+
+
+<!-- ABOUT -->
+
+<section class="about">
+
+    <h2>
+        About the System
+    </h2>
+
+    <p>
+        The Student Course Management System helps
+        educational institutions organize student,
+        course, instructor, enrollment, and learning
+        material information through a single system.
+    </p>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    Student Course Management System
+    &nbsp; | &nbsp;
+    Academic Year 2026–27
+
+</footer>
+
+
+</body>
+
+</html>

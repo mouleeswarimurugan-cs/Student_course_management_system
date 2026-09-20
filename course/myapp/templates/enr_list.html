@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enrollment Management</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            
+        }
+
+        .container {
+            max-width: 1100px;
+            margin-left: 40px;
+            margin-top: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #222;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #777;
+        }
+
+        .add-btn {
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .add-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .table-box {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        .filter-box {
+            background: white;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .filter-box form {
+            display: flex;
+            gap: 12px;
+        }
+
+        .filter-box select {
+            padding: 10px 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+            min-width: 180px;
+        }
+
+        .filter-box select:focus {
+            border-color: #2563eb;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #1f3155;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            color: #444;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 15px;
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .buttons a {
+            text-decoration: none;
+            margin-right: 8px;
+            font-weight: bold;
+        }
+
+        .view {
+            color: #2563eb;
+        }
+
+        .edit {
+            color: #15803d;
+        }
+
+        .delete {
+            color: #dc2626;
+        }
+
+        .empty {
+            padding: 50px;
+            text-align: center;
+            color: #777;
+        }
+
+        
+    </style>
+</head>
+
+<body>
+{% include 'base.html'%}
+
+<div class="container">
+
+    
+
+    <div class="header">
+
+        <div>
+            <h1>Enrollments</h1>
+
+            <p>
+                Manage student course enrollments
+            </p>
+        </div>
+
+        <a href="{% url 'enrollment_create' %}"
+           class="add-btn">
+            Add Enrollment
+        </a>
+
+    </div>
+
+    <div class="filter-box">
+
+    <form method="GET">
+
+        <!-- Course Filter -->
+        <select name="course" onchange="this.form.submit()">
+
+            <option value="">All Courses</option>
+
+            {% for course in courses %}
+
+                <option value="{{ course.id }}"
+                    {% if request.GET.course == course.id|stringformat:"s" %}
+                        selected
+                    {% endif %}>
+
+                    {{ course.name }}
+
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+
+        <!-- Student Filter -->
+        <select name="student" onchange="this.form.submit()">
+
+            <option value="">All Students</option>
+
+            {% for student in students %}
+
+                <option value="{{ student.id }}"
+                    {% if request.GET.student == student.id|stringformat:"s" %}
+                        selected
+                    {% endif %}>
+
+                    {{ student.name }}
+
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+
+        <!-- Status Filter -->
+        <select name="status" onchange="this.form.submit()">
+
+            <option value="">All Status</option>
+
+            <option value="Active"
+                {% if request.GET.status == "Active" %}
+                    selected
+                {% endif %}>
+                Active
+            </option>
+
+            <option value="Completed"
+                {% if request.GET.status == "Completed" %}
+                    selected
+                {% endif %}>
+                Completed
+            </option>
+
+            <option value="Pending"
+                {% if request.GET.status == "Pending" %}
+                    selected
+                {% endif %}>
+                Pending
+            </option>
+
+        </select>
+
+    </form>
+
+</div>
+    <!-- Enrollment Table -->
+
+    {% if enrollments %}
+
+    <div class="table-box">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Student</th>
+
+                    <th>Course</th>
+
+                    <th>Enrollment Date</th>
+
+                    <th>Status</th>
+
+                    <th>Marks</th>
+
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for enrollment in enrollments %}
+
+                <tr>
+
+                    <td>
+                        {{ enrollment.student.name }}
+                    </td>
+
+                    <td>
+                        {{ enrollment.course.name }}
+                    </td>
+
+                    <td>
+                        {{ enrollment.enrollment_date }}
+                    </td>
+
+                    <td>
+                        <span class="status">
+                            {{ enrollment.status }}
+                        </span>
+                    </td>
+
+                    <td>
+                        {{ enrollment.marks }}
+                    </td>
+
+                    <td class="buttons">
+
+                        <a href="{% url 'enrollment_detail' enrollment.id %}"
+                           class="view">
+                            View
+                        </a>
+
+                        <a href="{% url 'enrollment_update' enrollment.id %}"
+                           class="edit">
+                            Edit
+                        </a>
+
+                        <a href="{% url 'enrollment_delete' enrollment.id %}"
+                           class="delete">
+                            Delete
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="table-box">
+
+        <div class="empty">
+
+            <h2>No Enrollments Found</h2>
+
+            <p>
+                Add an enrollment to get started.
+            </p>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

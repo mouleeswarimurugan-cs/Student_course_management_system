@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Instructor Form</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f3f4f6;
+            
+        }
+
+        .box {
+            width: 500px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            margin-top: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px #ccc;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        button,
+        .back-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 7px;
+            font-size: 15px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .save-btn {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .save-btn:hover {
+            background: #3730a3;
+        }
+
+        .back-btn {
+            background: #e5e7eb;
+            color: #333;
+        }
+
+        .back-btn:hover {
+            background: #d1d5db;
+        }
+        
+
+    </style>
+</head>
+
+<body>
+   {% include 'base.html'%}
+<div class="box">
+
+    <h1>Instructor Form</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <div class="group">
+            <label>Instructor Name</label>
+            <input
+                type="text"
+                name="name"
+                placeholder="Enter instructor name"
+                value="{{ instructor.name|default:'' }}"
+                required
+            >
+        </div>
+
+        <div class="group">
+            <label>Email</label>
+            <input
+                type="email"
+                name="email"
+                placeholder="Enter email"
+                value="{{ instructor.email|default:'' }}"
+                required
+            >
+        </div>
+
+        <div class="group">
+            <label>Specialization</label>
+            <input
+                type="text"
+                name="specialization"
+                placeholder="Enter specialization"
+                value="{{ instructor.specialization|default:'' }}"
+                required
+            >
+        </div>
+
+        <div class="group">
+            <label>Profile Image</label>
+            <input
+                type="file"
+                name="profile_img"
+            >
+        </div>
+
+        <div class="buttons">
+
+            <button type="submit" class="save-btn">
+                Save Instructor
+            </button>
+
+            <a href="{% url 'instructor_list' %}" class="back-btn">
+                Back
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

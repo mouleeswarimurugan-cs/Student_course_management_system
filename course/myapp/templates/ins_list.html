@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Instructors</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f8fa;
+            color: #18294a;
+        }
+
+        /* Layout */
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+
+        
+
+
+        /* Main */
+
+        .main {
+            flex: 1;
+            padding: 45px;
+        }
+
+
+        /* Header */
+
+        .top-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+
+            margin-bottom: 30px;
+        }
+
+        .heading small {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .heading h1 {
+            margin-top: 6px;
+            font-size: 28px;
+            color: #17294b;
+        }
+
+        .heading p {
+            margin-top: 8px;
+            color: #6b7280;
+            font-size: 15px;
+        }
+
+
+        /* Add button */
+
+        .add-btn {
+            background: #17294b;
+            color: white;
+
+            text-decoration: none;
+
+            padding: 13px 20px;
+
+            border-radius: 5px;
+
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .add-btn:hover {
+            background: #293d63;
+        }
+
+
+        /* Cards grid */
+
+        .cards {
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 20px;
+        }
+
+
+        /* Card */
+
+        .card {
+            background: white;
+
+            border: 1px solid #dce1e8;
+
+            padding: 25px;
+
+            min-height: 300px;
+
+            display: flex;
+            flex-direction: column;
+
+            border-radius: 5px;
+
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+
+            transform: translateY(-2px);
+        }
+
+
+        /* Avatar */
+
+        .avatar {
+            width: 58px;
+            height: 58px;
+
+            border-radius: 50%;
+
+            background: #e5f0ea;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 24px;
+            font-weight: bold;
+
+            color: #18543d;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* Profile image */
+
+        .avatar img {
+            width: 58px;
+            height: 58px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+        }
+
+
+        .card h2 {
+            font-size: 17px;
+
+            color: #17294b;
+
+            margin-bottom: 8px;
+        }
+
+        .email {
+            color: #64748b;
+
+            font-size: 14px;
+
+            margin-bottom: 18px;
+
+            word-break: break-word;
+        }
+
+
+        /* Specialization */
+
+        .specialization {
+            display: inline-block;
+
+            width: fit-content;
+
+            background: #edf4ff;
+
+            color: #164ea0;
+
+            padding: 7px 13px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+        }
+
+
+        /* Actions */
+
+        .actions {
+            margin-top: auto;
+
+            display: flex;
+
+            gap: 20px;
+
+            padding-top: 25px;
+        }
+
+        .actions a {
+            text-decoration: none;
+
+            font-size: 14px;
+        }
+
+        .edit {
+            color: #165dcc;
+        }
+
+        .delete {
+            color: #dc3545;
+        }
+
+        .edit:hover,
+        .delete:hover {
+            text-decoration: underline;
+        }
+
+
+        /* Empty */
+
+        .empty {
+            grid-column: 1 / -1;
+
+            background: white;
+
+            padding: 50px;
+
+            text-align: center;
+
+            border: 1px solid #ddd;
+
+            color: #777;
+        }
+
+
+        /* Responsive */
+
+        @media (max-width: 1100px) {
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+                width: 180px;
+            }
+
+            .main {
+                padding: 25px;
+            }
+
+            .top-section {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 500px) {
+
+            .layout {
+                display: block;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .main {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    
+    {% include 'base.html'%}
+
+<div class="layout">
+
+
+    
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main">
+
+
+        <!-- HEADER -->
+
+        <div class="top-section">
+
+            <div class="heading">
+
+                <small>Faculty</small>
+
+                <h1>Instructors</h1>
+
+                <p>
+                    The people teaching each course.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{% url 'instructor_create' %}"
+                class="add-btn">Add Instructor
+
+            </a>
+
+        </div>
+
+
+
+        <!-- CARDS -->
+
+        <div class="cards">
+
+
+            {% for instructor in instructors %}
+
+
+            <div class="card">
+
+
+                <!-- Avatar -->
+
+                {% if instructor.profile_img %}
+
+                    <div class="avatar">
+
+                        <img
+                            src="{{ instructor.profile_img.url }}"
+                            alt="{{ instructor.name }}"
+                        >
+
+                    </div>
+
+                {% else %}
+
+                    <div class="avatar">
+
+                        {{ instructor.name|first|upper }}
+
+                    </div>
+
+                {% endif %}
+
+
+
+                <!-- Name -->
+
+                <h2>
+                    {{ instructor.name }}
+                </h2>
+
+
+                <!-- Email -->
+
+                <p class="email">
+                    {{ instructor.email }}
+                </p>
+
+
+                <!-- Specialization -->
+
+                <span class="specialization">
+
+                    {{ instructor.specialization }}
+
+                </span>
+
+
+                <!-- Actions -->
+
+                <div class="actions">
+
+                    <a
+                        href="{% url 'instructor_update' instructor.id %}"
+                        class="edit">
+
+                        Edit
+
+                    </a>
+
+
+                    <a
+                        href="{% url 'instructor_delete' instructor.id %}"
+                        class="delete">
+
+                        Delete
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+
+            {% empty %}
+
+
+            <div class="empty">
+
+                <h3>No Instructors Found</h3>
+
+                <p>
+                    Add your first instructor.
+                </p>
+
+            </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+</body>
+
+</html>

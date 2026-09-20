@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Delete Course</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+        }
+
+        .box {
+            width: 450px;
+            margin: 120px auto;
+            background: white;
+            padding: 35px;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            color: #222;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        button,
+        a {
+            padding: 11px 20px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button {
+            background: #dc2626;
+            color: white;
+        }
+
+        .cancel {
+            background: #64748b;
+            color: white;
+            margin-left: 8px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+    <h2>Delete Course?</h2>
+
+    <p>
+        Are you sure you want to delete
+        <strong>{{ course.course_name }}</strong>?
+    </p>
+
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <button type="submit">
+            Yes, Delete
+        </button>
+
+        <a href="{% url 'course_detail' course.id %}"
+           class="cancel">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>

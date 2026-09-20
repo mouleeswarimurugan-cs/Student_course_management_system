@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            background: #f9f7f2;
+            color: #14284a;
+        }
+
+
+        /* ================= SIDEBAR ================= */
+
+        
+
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            padding-bottom: 22px;
+
+            border-bottom: 1px solid #40506b;
+        }
+
+
+        .brand-logo {
+            width: 36px;
+            height: 36px;
+
+            border: 1px solid #c49a2c;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #c49a2c;
+
+            font-size: 13px;
+        }
+
+
+        .brand-name {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+
+        .brand-subtitle {
+            font-size: 11px;
+            color: #d0a84a;
+
+            margin-top: 4px;
+        }
+
+
+        /* MENU */
+
+        .menu {
+            margin-top: 18px;
+        }
+
+
+        .menu a {
+            display: block;
+
+            color: #f0f0f0;
+
+            text-decoration: none;
+
+            padding: 12px 14px;
+
+            margin-bottom: 3px;
+
+            font-size: 14px;
+
+            border-left: 2px solid transparent;
+        }
+
+
+        .menu a:hover {
+            background: #2b3c5b;
+        }
+
+
+        .menu a.active {
+            background: #2d3e5e;
+
+            border-left: 2px solid #d3a72c;
+
+            color: white;
+        }
+
+
+        /* SIDEBAR FOOTER */
+
+        .sidebar-footer {
+            position: absolute;
+
+            left: 16px;
+            right: 16px;
+            bottom: 25px;
+
+            padding-top: 17px;
+
+            border-top: 1px solid #40506b;
+
+            font-size: 11px;
+
+            color: #c3a866;
+        }
+
+
+        /* ================= MAIN ================= */
+
+        .main {
+           
+            padding: 38px 44px;
+
+            min-height: 100vh;
+        }
+
+
+        .page-heading {
+            margin-bottom: 24px;
+        }
+
+
+        .small-title {
+            font-size: 12px;
+
+            color: #66758f;
+
+            margin-bottom: 8px;
+        }
+
+
+        .page-heading h1 {
+            font-size: 16px;
+
+            margin: 0 0 8px;
+
+            color: #10294e;
+        }
+
+
+        .page-heading p {
+            margin: 0;
+
+            font-size: 14px;
+
+            color: #52627b;
+        }
+
+
+        /* ================= STATISTICS ================= */
+
+        .statistics {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(6, 1fr);
+
+            border-top: 1px solid #d8d0bf;
+
+            border-bottom: 1px solid #d8d0bf;
+
+            margin-bottom: 32px;
+        }
+
+
+        .stat {
+
+            padding: 23px 16px;
+
+            border-right: 1px solid #d8d0bf;
+        }
+
+
+        .stat:last-child {
+            border-right: none;
+        }
+
+
+        .stat-number {
+
+            font-size: 28px;
+
+            color: #0e2a51;
+
+            margin-bottom: 12px;
+        }
+
+
+        .stat-label {
+
+            font-size: 12px;
+
+            color: #62728c;
+        }
+
+
+        /* ================= DASHBOARD BOXES ================= */
+
+        .dashboard-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 24px;
+        }
+
+
+        .dashboard-box {
+
+            background: #fffdf9;
+
+            border: 1px solid #d8d0bf;
+
+            padding: 20px;
+        }
+
+
+        .dashboard-box h2 {
+
+            margin: 0 0 22px;
+
+            font-size: 16px;
+
+            color: #10294e;
+        }
+
+
+        /* ================= BARS ================= */
+
+        .course-row,
+        .student-row {
+
+            display: grid;
+
+            grid-template-columns: 140px 1fr 25px;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 14px;
+
+            font-family: Arial, sans-serif;
+        }
+
+
+        .item-name {
+
+            font-size: 12px;
+
+            color: #263d60;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+
+        .bar-background {
+
+            height: 8px;
+
+            background: #eeece5;
+
+            border-radius: 2px;
+
+            overflow: hidden;
+        }
+
+
+        .bar-fill {
+
+            height: 100%;
+
+            background: #315d3d;
+
+            border-radius: 2px;
+
+            min-width: 2px;
+        }
+
+
+        .student-bar {
+
+            background: #bd9326;
+        }
+
+
+        .number {
+
+            font-size: 12px;
+
+            color: #152b4e;
+
+            text-align: right;
+        }
+
+
+        .empty {
+
+            font-size: 13px;
+
+            color: #777;
+
+            padding: 20px 0;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width: 1100px) {
+
+            .statistics {
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+            .stat:nth-child(3) {
+                border-right: none;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        @media(max-width: 700px) {
+
+            .sidebar {
+                width: 190px;
+            }
+
+            .main {
+                margin-left: 190px;
+
+                padding: 25px 20px;
+            }
+
+            .statistics {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .course-row,
+            .student-row {
+                grid-template-columns:
+                    100px 1fr 20px;
+            }
+        }
+        
+        
+    </style>
+
+</head>
+
+
+<body>
+
+ {% include 'base.html' %}
+
+
+
+<!-- ================= MAIN ================= -->
+
+<div class="main">
+
+
+    <!-- HEADING -->
+
+    <div class="page-heading">
+
+        <div class="small-title">
+            Registrar overview
+        </div>
+
+        <h1>
+            Dashboard
+        </h1>
+
+        <p>
+            A running tally of enrolment across the academic term.
+        </p>
+
+    </div>
+
+
+
+    <!-- ================= STATISTICS ================= -->
+
+    <div class="statistics">
+
+
+        <div class="stat">
+
+            <div class="stat-number">
+                {{ total_students }}
+            </div>
+
+            <div class="stat-label">
+                Total students
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-number">
+                {{ total_courses }}
+            </div>
+
+            <div class="stat-label">
+                Total courses
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-number">
+                {{ total_enrollments }}
+            </div>
+
+            <div class="stat-label">
+                Total enrollments
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-number">
+                {{ average_marks }}
+            </div>
+
+            <div class="stat-label">
+                Average marks
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-number">
+                {{ highest_marks }}
+            </div>
+
+            <div class="stat-label">
+                Highest marks
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-number">
+                {{ lowest_marks }}
+            </div>
+
+            <div class="stat-label">
+                Lowest marks
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- ================= CHARTS ================= -->
+
+    <div class="dashboard-grid">
+
+
+        <!-- COURSE WISE -->
+
+        <div class="dashboard-box">
+
+            <h2>
+                Course – number of students
+            </h2>
+
+
+            {% for course in course_data %}
+
+            <div class="course-row">
+
+
+                <div class="item-name"
+                     title="{{ course.name }}">
+
+                    {{ course.name }}
+
+                </div>
+
+
+                <div class="bar-background">
+
+                    <div class="bar-fill">
+                        
+                        {% if total_students > 0 %}
+                            {% widthratio course.student_count total_students 100 %}
+                        {% else %}
+                            0
+                        {% endif %}
+                    </div>
+
+                </div>
+
+
+                <div class="number">
+
+                    {{ course.student_count }}
+
+                </div>
+
+
+            </div>
+
+            {% empty %}
+
+                <div class="empty">
+                    No courses found.
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+
+
+        <!-- STUDENT WISE -->
+
+        <div class="dashboard-box">
+
+            <h2>
+                Student – number of courses
+            </h2>
+
+
+            {% for student in student_data %}
+
+            <div class="student-row">
+
+
+                <div class="item-name"
+                     title="{{ student.name }}">
+
+                    {{ student.name }}
+
+                </div>
+
+
+                <div class="bar-background">
+
+                    <div class="bar-fill student-bar">
+                        {% if total_courses > 0 %}
+                            {% widthratio student.course_count total_courses 100 %}
+                        {% else %}
+                            0
+                        {% endif %}
+                    </div>
+
+                </div>
+
+
+                <div class="number">
+
+                    {{ student.course_count }}
+
+                </div>
+
+
+            </div>
+
+            {% empty %}
+
+                <div class="empty">
+                    No students found.
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

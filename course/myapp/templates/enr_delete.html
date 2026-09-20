@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Enrollment</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 100px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        h1 {
+            color: #dc2626;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .student {
+            font-weight: bold;
+            color: #222;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 11px;
+            border-radius: 6px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .delete-btn {
+            background: #dc2626;
+            color: white;
+        }
+
+        .cancel-btn {
+            background: #555;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.85;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>Delete Enrollment</h1>
+
+        <p>
+            Are you sure you want to delete this enrollment?
+        </p>
+
+        <p>
+            Student:
+            <span class="student">
+                {{ enrollment.student.name }}
+            </span>
+        </p>
+
+        <p>
+            Course:
+            <span class="student">
+                {{ enrollment.course.course_name }}
+            </span>
+        </p>
+
+        <div class="buttons">
+
+            <a href="{% url 'enrollment_list' %}"
+               class="btn cancel-btn">
+                Cancel
+            </a>
+
+            <form method="POST" style="flex: 1;">
+                {% csrf_token %}
+
+                <button type="submit"
+                        class="btn delete-btn"
+                        style="width: 100%;">
+                    Yes, Delete
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

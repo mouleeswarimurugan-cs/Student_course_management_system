@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Delete Instructor</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+        }
+
+        .delete-card {
+            width: 100%;
+            max-width: 450px;
+
+            background: white;
+            padding: 35px;
+
+            border-radius: 12px;
+
+            text-align: center;
+
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .delete-icon {
+            width: 70px;
+            height: 70px;
+
+            margin: 0 auto 20px;
+
+            background: #fee2e2;
+
+            border-radius: 50%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 32px;
+        }
+
+        h1 {
+            color: #222;
+            margin-bottom: 12px;
+        }
+
+        .message {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+
+            margin-bottom: 25px;
+        }
+
+        .instructor-name {
+            color: #333;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            flex: 1;
+
+            padding: 12px;
+
+            border: none;
+            border-radius: 7px;
+
+            text-decoration: none;
+
+            font-size: 15px;
+
+            cursor: pointer;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #b02a37;
+        }
+
+        .cancel-btn {
+            background: #e5e7eb;
+            color: #333;
+        }
+
+        .cancel-btn:hover {
+            background: #d1d5db;
+        }
+
+        @media (max-width: 500px) {
+
+            .delete-card {
+                padding: 25px 20px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="delete-card">
+
+        <div class="delete-icon">
+            ⚠️
+        </div>
+
+        <h1>Delete Instructor?</h1>
+
+        <p class="message">
+            Are you sure you want to delete
+            <span class="instructor-name">
+                {{ instructor.name }}
+            </span>?
+            <br>
+            This action cannot be undone.
+        </p>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="buttons">
+
+                <button type="submit" class="btn delete-btn">
+                    Yes, Delete
+                </button>
+
+                <a href="{% url 'instructor_list' %}"
+                   class="btn cancel-btn">
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+</html>

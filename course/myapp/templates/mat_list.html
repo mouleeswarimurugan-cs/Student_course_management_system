@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Course Materials</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f5f7fb;
+            
+        }
+
+        .container {
+            max-width: 1100px;
+            margin-left: 40px;
+            margin-top: 20px;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .add-btn {
+            background: #1d4ed8;
+            color: white;
+            padding: 12px 18px;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #eef2ff;
+        }
+
+        .view {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .edit {
+            color: green;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .delete {
+            color: red;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .file {
+            color: #555;
+        }
+
+       
+        
+    </style>
+</head>
+
+<body>
+
+    {% include 'base.html' %}
+<div class="container">
+   
+
+    <div class="top">
+        <div>
+            <h1>Course Materials</h1>
+            <p>Manage all course materials</p>
+        </div>
+
+        <a href="{% url 'material_create' %}" class="add-btn">
+            Add Material
+        </a>
+    </div>
+
+    <table>
+
+        <tr>
+            <th>Course</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>File</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for material in materials %}
+
+        <tr>
+
+            <td>
+                {{ material.course.name }}
+            </td>
+
+            <td>
+                {{ material.title }}
+            </td>
+
+            <td>
+                {{ material.description }}
+            </td>
+
+            <td class="file">
+
+                {% if material.file %}
+                    <a href="{{ material.file.url }}" target="_blank">
+                        View File
+                    </a>
+                {% else %}
+                    No File
+                {% endif %}
+
+            </td>
+
+            <td>
+
+                <a href="{% url 'material_detail' material.id %}"
+                   class="view">
+                    View
+                </a>
+
+                <a href="{% url 'material_update' material.id %}"
+                   class="edit">
+                    Edit
+                </a>
+
+                <a href="{% url 'material_delete' material.id %}"
+                   class="delete">
+                    Delete
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% empty %}
+
+        <tr>
+            <td colspan="5" style="text-align:center;">
+                No Course Materials Found
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+
+</body>
+</html>

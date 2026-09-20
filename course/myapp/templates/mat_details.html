@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Material Details</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 600px;
+
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 12px;
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            color: #17294b;
+            margin-bottom: 25px;
+        }
+
+        .detail {
+            margin-bottom: 20px;
+        }
+
+        .label {
+            display: block;
+
+            color: #777;
+
+            font-size: 13px;
+
+            margin-bottom: 6px;
+        }
+
+        .value {
+            color: #222;
+
+            font-size: 16px;
+
+            font-weight: 600;
+        }
+
+        .file-box {
+            background: #f5f7fa;
+
+            padding: 15px;
+
+            border-radius: 8px;
+        }
+
+        .file-link {
+            display: inline-block;
+
+            margin-top: 8px;
+
+            padding: 10px 18px;
+
+            background: #4f46e5;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 6px;
+        }
+
+        .file-link:hover {
+            background: #3730a3;
+        }
+
+        .buttons {
+            display: flex;
+
+            gap: 12px;
+
+            margin-top: 30px;
+        }
+
+        .btn {
+            flex: 1;
+
+            padding: 12px;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+        }
+
+        .back {
+            background: #e5e7eb;
+            color: #333;
+        }
+
+        .edit {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .delete {
+            background: #dc3545;
+            color: white;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="card">
+
+        <h1>Material Details</h1>
+
+
+        <div class="detail">
+
+            <span class="label">
+                Course
+            </span>
+
+            <div class="value">
+                {{ material.course.name }}
+            </div>
+
+        </div>
+
+
+        <div class="detail">
+
+            <span class="label">
+                Title
+            </span>
+
+            <div class="value">
+                {{ material.title }}
+            </div>
+
+        </div>
+
+
+        <div class="detail">
+
+            <span class="label">
+                Description
+            </span>
+
+            <div class="value">
+                {{ material.description }}
+            </div>
+
+        </div>
+
+
+        <div class="detail">
+
+            <span class="label">
+                File
+            </span>
+
+            <div class="file-box">
+
+                {% if material.file %}
+
+                    <a
+                        href="{{ material.file.url }}"
+                        target="_blank"
+                        class="file-link">
+
+                        View / Download File
+
+                    </a>
+
+                {% else %}
+
+                    No File Available
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <div class="buttons">
+
+            
+
+
+            <a
+                href="{% url 'material_update' material.id %}"
+                class="btn edit">
+
+                Edit
+
+            </a>
+
+
+            <a
+                href="{% url 'material_delete' material.id %}"
+                class="btn delete">
+
+                Delete
+
+            </a>
+
+            <a
+                href="{% url 'material_list' %}"
+                class="btn back">
+
+                Back
+
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

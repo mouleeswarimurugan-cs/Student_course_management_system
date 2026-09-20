@@ -14,4 +14,4 @@ The server will start on port 8000. You can access it by navigating to `http://1
 
 ## Looks like this
 
-![Website](Media/images/home.png)
+![Website](Media/cou_image/home.png)

@@ -10,7 +10,7 @@ To run the server, execute the following command:
 python manage.py runserver
 ```
 
-The server will start on port 8080. You can access it by navigating to `http://127.0.0.1:8000/myapp/home/` in your web browser.
+The server will start on port 8000. You can access it by navigating to `http://127.0.0.1:8000/myapp/home/` in your web browser.
 
 ## Looks like this
 
